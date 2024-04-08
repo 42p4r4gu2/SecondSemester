@@ -1,0 +1,10 @@
+%include "io.inc"
+
+section .text
+global main
+main:
+    mov ebp, esp; for correct debugging
+    ;write your code here
+    xor eax, eax
+    mov eax, 0
+    ret
