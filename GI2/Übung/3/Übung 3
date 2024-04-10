@@ -1,0 +1,106 @@
+%include "io.inc"
+
+section .data
+A DD 0x5
+B DD 0x0
+C DD 0x3
+ERG DD 0
+Zahl DD 0
+
+section .text
+global CMAIN
+CMAIN:
+mov ebp, esp; for correct debugging
+
+;write your code here
+
+;Zahl Variable wird in ecx geladen
+MOV ecx, [Zahl]
+
+;"Beginn" der while Schleife 
+Schleife:
+;speichert den aktuellen Wert von ecx in Zahl
+MOV [Zahl], ecx
+;gibt alle Variablen aus
+NEWLINE
+PRINT_STRING "A: "
+PRINT_HEX 4,A
+NEWLINE
+PRINT_STRING "B: "
+PRINT_HEX 4,B
+NEWLINE
+PRINT_STRING "C: "
+PRINT_HEX 4,C
+NEWLINE
+PRINT_STRING "Ergebnis: "
+PRINT_HEX 4,ERG
+NEWLINE
+PRINT_STRING "Zahl: "
+PRINT_HEX 4,Zahl
+
+;lädt die Variablen A und B
+MOV eax, [A]
+MOV ebx, [B]
+;Subtrahiert B von A
+SUB eax, ebx
+;falls Overflow springt das Programm zum Ende
+jo ENDAUS
+;lädt ebx
+MOV ebx, [C]
+;addiert auf das vorherige Ergebnis C
+ADD eax, ebx
+;falls Overflow springt das Programm zum Ende
+jo ENDAUS
+;speichert das Ergebnis
+MOV [ERG], eax
+
+;lädt A, B und C und verdoppelt diese
+;bei Overflow springt das Programm wieder raus
+MOV eax, [A]
+ADD eax, [A]
+jo ENDAUS
+MOV [A], eax
+
+MOV eax, [B]
+ADD eax, [B]
+jo ENDAUS
+MOV [B], eax
+
+MOV eax, [C]
+ADD eax, [C]
+jo ENDAUS
+MOV [C], eax
+
+;erhöht ecx (Zähler) um ein
+inc ecx
+
+;springt im Programm wieder nach oben zur Marke Schleife
+jmp Schleife
+
+
+ENDAUS:
+;Ende des Programms, gibt alle Variablen nochmals aus
+MOV [ERG], eax
+NEWLINE
+NEWLINE
+PRINT_STRING "A: "
+PRINT_HEX 4,A
+NEWLINE
+NEWLINE
+PRINT_STRING "B: "
+PRINT_HEX 4,B
+NEWLINE
+NEWLINE
+PRINT_STRING "C: "
+PRINT_HEX 4,C
+NEWLINE
+NEWLINE
+PRINT_STRING "Ergebnis: "
+PRINT_HEX 4,ERG
+NEWLINE
+NEWLINE
+PRINT_STRING "Zahl: "
+PRINT_HEX 4,Zahl
+
+xor eax, eax
+ret
