@@ -1,3 +1,5 @@
 test, zwei, , einrandomlink.com
 test, zwe, jji, zweirandomlink.com
 asdfasdf, asdfg, adsf, zweirandomlink.com
+tag1, , , adsjföadsf
+tag1, , , EINLINK
