@@ -14,6 +14,6 @@ print("9: ", not 0 < a)
 #Excercise 4
 import math as mt
 print("Excercise 4")
-x = 7
-mysinh = bool(0.5 *(mt.e ** x - mt.e ** -x))
-print(mysinh)   
+x = 2
+mysinh = (0.5 *(mt.e ** x - mt.e ** -x))
+print(mt.sinh(x) == mysinh)   
