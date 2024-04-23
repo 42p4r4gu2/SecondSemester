@@ -24,7 +24,7 @@ void primes(int count, pg2::dynamic_array &array){
             }
         }
         if(isPrime){
-        array = array.push(i);
+        array.changeArray(array.push(i));
         std::cout << i << std:: endl;
         }
     }

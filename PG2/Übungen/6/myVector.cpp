@@ -72,5 +72,9 @@ namespace pg2{
                 std::cout << std::endl;
             }
 
+            void dynamic_array::changeArray(int* newPntr){
+                array = newPntr;
+            }
+
 
 };

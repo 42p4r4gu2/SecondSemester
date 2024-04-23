@@ -11,6 +11,7 @@ namespace pg2{
             int* push(int);
             int returnLength();
             void printAll();
+            void changeArray(int*);
 
     };
 }
