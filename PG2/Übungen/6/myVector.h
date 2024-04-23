@@ -8,7 +8,7 @@ namespace pg2{
             dynamic_array(int);
             ~dynamic_array();
             int at(int);
-            void push(int);
+            int* push(int);
             int returnLength();
             void printAll();
 

@@ -3,7 +3,7 @@ OBJ = $(SRC:%.cpp=%.o)
 
 CXXFLAGS = -ggdb3 -O3
 
-todo: $(OBJ)
+dynamicArray: $(OBJ)
 	g++ $(OBJ) -o $@
 
 %.o: %.cpp myVector.h
