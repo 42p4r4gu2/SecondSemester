@@ -4,9 +4,8 @@
 void primes(int, pg2::dynamic_array&);
 
 int main(int argc, char **argv){
-    pg2::dynamic_array stuff(2);
+    pg2::dynamic_array stuff(1);
     stuff.push(2);
-    stuff.push(3);
     std::cout << stuff.returnLength() << std::endl;
     primes(atoi(argv[1]), stuff);
     stuff.printAll();
@@ -14,18 +13,20 @@ int main(int argc, char **argv){
     return 0;
 }
 
+
 void primes(int count, pg2::dynamic_array &array){
-    for(int i = 4; i < count; i++){
+    for(int i = 3; i < count; i++){
         bool isPrime = true;
-        for(int j = 0; j < array.returnLength(); j++){
+        for(int j = 0; j < array.returnLength() - 1; j++){
             if(i % array.at(j) == 0){
                 isPrime = false;
+                std::cout << "Not a Prime: " << i << std::endl;
                 break;
             }
         }
         if(isPrime){
         array.changeArray(array.push(i));
-        std::cout << i << std:: endl;
+        std::cout << "Prime found: " << i << std:: endl;
         }
     }
 }

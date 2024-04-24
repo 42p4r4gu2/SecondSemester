@@ -30,36 +30,37 @@ namespace pg2{
 
 
             int* dynamic_array::push(int x) {
-                if(!array){
-                    array = new int[1];
-                    length++;
-                    if(!array){
-                        std::cerr << "Mem allocation failed :(" << std::endl;
-                        exit(1);
-                    }
+
+        if(!array){
+            array = new int[1];
+            length++;
+            if(!array){
+                std::cerr << "Mem allocation failed :(" << std::endl;
+                exit(1);
+            }
+            return array;
+        } else {
+            for(int i = 0; i < length; i++){
+                if(array[i] == -1){
+                    array[i] = x;
                     return array;
-                } else {
-                    for(int i = 0; i < length; i++){
-                        if(array[i] == -1){
-                            array[i] = x;
-                            length++;
-                            return array;
-                        }
-                    }
-                    length++;
-                    int* newArray = new int[length];
-                    for(int i = 0; i < length-1; i++){
-                        newArray[i] = array[i];
-                    }
-                    delete[] array;
-                    if(!newArray){
-                        std::cerr << "geht ned womp womp" << std::endl;
-                        exit(2);
-                    }
-                    return newArray;
                 }
             }
-
+            length++;
+            int* newArray = new int[length];
+            for(int i = 0; i < length-1; i++){
+                newArray[i] = array[i];
+            }
+            delete[] array;
+            if(!newArray){
+                std::cerr << "geht ned womp womp" << std::endl;
+                exit(2);
+            }
+            array = newArray;
+            array[length-1] = x;
+            return array;
+        }
+    }
             
             int dynamic_array::returnLength(){
                 return length;
