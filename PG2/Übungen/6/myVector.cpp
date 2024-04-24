@@ -7,6 +7,7 @@ namespace pg2{
             dynamic_array::dynamic_array(){
                 array = nullptr;
                 length = 0;
+                capacity = 0;
             }
 
             dynamic_array::dynamic_array(int i){
@@ -14,7 +15,9 @@ namespace pg2{
                 for(int j = 0; j <  i; j++)
                     array[j] = -1;
 
-                length = i;
+                length = 0;
+                capacity = i;
+
             }
 
             dynamic_array::~dynamic_array(){
@@ -28,7 +31,7 @@ namespace pg2{
                 return -1;
             }
 
-
+        /*
             int* dynamic_array::push(int x) {
 
         if(!array){
@@ -61,7 +64,38 @@ namespace pg2{
             return array;
         }
     }
+    */
             
+            void dynamic_array::push(int x){
+                if(length == capacity){
+                    reserve(length);
+                    std::cout << "Space reserved" << std::endl;
+                    array[length++] = x;
+                } else {
+                    array[length] = x;
+                    length++;
+                }
+            }
+
+            void dynamic_array::reserve(unsigned int len){
+                capacity = 2 * len;
+                int* newArray = new int[capacity];
+                for(int i = 0; i < length; i++){
+                    std::cout << array[i] << std::endl;
+                    newArray[i] = array[i];
+                }
+                for(int i = length; i < capacity; i++){
+                    newArray[i] = -1;
+                }
+                delete[] array;
+                if(!newArray){
+                    std::cerr << "geht ned womp womp" << std::endl;
+                    exit(2);
+                }
+                array = newArray;
+                capacity = len*2;
+            }
+
             int dynamic_array::returnLength(){
                 return length;
             }
