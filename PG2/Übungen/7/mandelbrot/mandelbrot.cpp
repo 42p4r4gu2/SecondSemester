@@ -4,38 +4,44 @@
 #include "complex-number.h"
 #include "color.h"
 
-
-int steps(int x, int y, int reps){
-    pg2::complex_number complex(x, y);
-    double abs = complex.abs();
-    double zn = 0;
-    double znl = 0;
-    for(int i = 1; i < reps; i++){
-        zn = (znl)*(znl) + abs;
-        znl = zn;
-        if(zn > 2)
-            return i;
+int steps(const pg2::complex_number &complex, int reps){
+    pg2::complex_number c(0,0);
+    int i = 0;
+    while(i < reps && c.abs() <= 2){
+        c *= c;
+        //std::cout << c.get_real() << "+" << c.get_imaginary() << "i" << std::endl; 
+        c += complex;
+        i++;
     }
-    return reps;
+    return i;
 }
 
 int main(int argc, char **argv){
-    if(argc != 5){
-        std::cerr << "not enough arguments" << std::endl;
-        return -1;
-    }
 
-    int heigth = atoi(argv[1]);
-    int width = atoi(argv[2]);
+    int reps = 2000;
+
+    int height = std::stoi(argv[2]);
+    int width = std::stoi(argv[1]);
     std::string filename = argv[3];
-    int reps = atoi(argv[4]);
+    int xmin = std::stoi(argv[4]);
+    int xmax = std::stoi(argv[5]);
+    int ymin = std::stoi(argv[6]);
+    int ymax = std::stoi(argv[7]);
 
-    png::image<png::rgb_pixel> result(width, heigth);
+    png::image<png::rgb_pixel> result(width, height);
 
     #pragma omp parallel for
     for(int x = 0; x < width; ++x){
-        for(int y = 0; y < heigth; ++y){
-            result.set_pixel(x,y, color_map(steps(x,y,reps), reps));
+        for(int y = 0; y < height; ++y){
+            // Pixel auf die Teilebene [-2-2i, 2+2i] abbilden
+            double real = -2.0 + 4.0 / width * x;
+            double imag = -2.0 + 4.0 / height * y;
+            const pg2::complex_number complex (real, imag);
+            int step = steps(complex, reps);
+            if(step == reps)
+                result.set_pixel(x,y, png::rgb_pixel(0,0,0));
+            else
+                result.set_pixel(x,y, color_map(step%reps, reps)); 
         }
     }
     result.write(filename + ".png");

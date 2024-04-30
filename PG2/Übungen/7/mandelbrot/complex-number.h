@@ -6,9 +6,12 @@ class complex_number{
         ~complex_number();
         complex_number(double, double);
         complex_number(const complex_number &copy);
-        int abs();
+        double abs();
+        double abs() const;
         int get_real();
         int get_imaginary();
         void addPic(int, int);
+        complex_number operator+=(const complex_number &other);
+        complex_number operator*=(const complex_number &other);
 };
 }
