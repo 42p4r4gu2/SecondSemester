@@ -22,10 +22,7 @@ def count(word, filename):
     print("first occurence: ", text.find(word))
 
 def stringEncoding(str):
-    oddIn = str[1::2]
-    evenIn = str[0::2]
-    str = oddIn + evenIn
-    print(str)
+    return (str[1::2] + str[0::2])
 
 
 

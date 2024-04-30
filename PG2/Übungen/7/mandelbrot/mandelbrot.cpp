@@ -34,14 +34,14 @@ int main(int argc, char **argv){
     for(int x = 0; x < width; ++x){
         for(int y = 0; y < height; ++y){
             // Pixel auf die Teilebene [-2-2i, 2+2i] abbilden
-            double real = -2.0 + 4.0 / width * x;
-            double imag = -2.0 + 4.0 / height * y;
+            double real = -2.0 + 4.0 / width * xmin;
+            double imag = -2.0 + 4.0 / height * ymin;
             const pg2::complex_number complex (real, imag);
             int step = steps(complex, reps);
             if(step == reps)
                 result.set_pixel(x,y, png::rgb_pixel(0,0,0));
             else
-                result.set_pixel(x,y, color_map(step%reps, reps)); 
+                result.set_pixel(x,y, color_map(step%reps, reps));
         }
     }
     result.write(filename + ".png");
