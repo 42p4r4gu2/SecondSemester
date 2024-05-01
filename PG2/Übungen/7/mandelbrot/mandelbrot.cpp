@@ -23,10 +23,10 @@ int main(int argc, char **argv){
     int height = std::stoi(argv[2]);
     int width = std::stoi(argv[1]);
     std::string filename = argv[3];
-    double ymax = std::atoi(argv[7]);
-    double ymin = std::atoi(argv[6]);
-    double xmax = std::atoi(argv[5]);
-    double xmin = std::atoi(argv[4]);
+    double ymax = std::stod(argv[7]);
+    double ymin = std::stod(argv[6]);
+    double xmax = std::stod(argv[5]);
+    double xmin = std::stod(argv[4]);
 
     png::image<png::rgb_pixel> result(width, height);
 
