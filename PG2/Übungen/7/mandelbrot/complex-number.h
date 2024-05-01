@@ -8,6 +8,8 @@ class complex_number{
         complex_number(const complex_number &copy);
         double abs();
         double abs() const;
+        double abs_squared();
+        double abs_squared() const;
         int get_real();
         int get_imaginary();
         void addPic(int, int);

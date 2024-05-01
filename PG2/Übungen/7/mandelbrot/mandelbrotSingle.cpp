@@ -23,10 +23,6 @@ int main(int argc, char **argv){
     int height = std::stoi(argv[2]);
     int width = std::stoi(argv[1]);
     std::string filename = argv[3];
-    double ymax = std::atoi(argv[7]);
-    double ymin = std::atoi(argv[6]);
-    double xmax = std::atoi(argv[5]);
-    double xmin = std::atoi(argv[4]);
 
     png::image<png::rgb_pixel> result(width, height);
 
@@ -34,9 +30,8 @@ int main(int argc, char **argv){
     for(int x = 0; x < width; ++x){
         for(int y = 0; y < height; ++y){
             // Pixel auf die Teilebene [-2-2i, 2+2i] abbilden
-            double real = xmin + (xmax - xmin) / width * x;
-            double imag = ymin + (ymax - ymin) / height * y;
-            //std::cout << real << " + " << imag << std::endl;
+            double real = -2.0 + 4.0 / width * x;
+            double imag = -2.0 + 4.0 / height * y;
             const pg2::complex_number complex (real, imag);
             int step = steps(complex, reps);
             if(step == reps)
@@ -45,6 +40,6 @@ int main(int argc, char **argv){
                 result.set_pixel(x,y, color_map(step%reps, reps));
         }
     }
-    result.write(filename);
+    result.write(filename + ".png");
     return 0;
 }

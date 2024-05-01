@@ -28,6 +28,12 @@
             real+=width;
             imaginary+=height;
         }
+        double pg2::complex_number::abs_squared(){
+            return std::sqrt((imaginary * imaginary) + (real * real)) * std::sqrt((imaginary * imaginary) + (real * real));
+        }
+        double pg2::complex_number::abs_squared() const{
+            return std::sqrt((imaginary * imaginary) + (real * real)) * std::sqrt((imaginary * imaginary) + (real * real));
+        }
         pg2::complex_number pg2::complex_number::operator+=(const pg2::complex_number &other){
             this->real += other.real;
             imaginary += other.imaginary;
