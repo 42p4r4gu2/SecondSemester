@@ -1,0 +1,44 @@
+%include "io.inc"
+section .data ;Grundwerte von Variablen setzen
+PROD1 DQ 0
+PROD2 DQ 0
+MULTA DD 0xABCDEF
+MULTB DD 0xFFFFFFFF
+
+section .text
+global main
+main:
+    mov ebp, esp; for correct debugging
+    xor eax, eax
+    
+    ;Variablen in den Speichern schieben
+    mov eax, [MULTA]
+    mov ecx, [MULTB]
+    ;ecx (zweiter Faktor) um eins verringern da erste Additon durch in Speicher moven bereits geschehen ist
+    dec ecx
+    
+    SCHLEIFE:
+    
+        add eax, [MULTA] ;Additon um Faktor 1
+        jc CARRY ;Falls ein Übertrag existiert springe zu Carry und erhöhe die ersten 32Bit des Ergebnisses um 1
+        CARRY_RETURN:
+        dec ecx ;Faktor 2 um 1 verringern
+        
+    jnz SCHLEIFE ;falls ecx nicht Null ist ist Produkt noch nicht fertig gerechnet und die Schleife wird erneut durchgeführt
+    
+    ;Ergebniss in Variablen speichern und ausgeben
+    mov [PROD1], eax
+    mov eax, [PROD2]
+    PRINT_HEX 4, eax
+    mov eax, [PROD1]
+    PRINT_HEX 4, eax
+    
+    
+    ret
+    
+    ;"If-Statement falls Übertrag -> ersten Teil des Ergebnisses um 1 erhöhen
+    CARRY:
+    mov ebx, [PROD2]
+    inc ebx
+    mov [PROD2], ebx
+    jmp CARRY_RETURN
