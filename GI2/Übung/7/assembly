@@ -1,0 +1,45 @@
+%include "io.inc"
+
+section .data
+ERG DD 0
+ERG4 DD 0
+ZE DD 0
+ZE4 DD 0
+ZAHL DD 429496729
+MUL1 DD 22
+MUL2 DD 8
+SAVE DD 0
+SAVE2 DD 0
+section .text
+global main
+main:
+
+    mov eax, [ZAHL] ;Variablen ZAHL und MUL1 in eax und edx laden
+    mov edx, [MUL1]
+    mul edx ;Multiplizieren
+    
+    mov [ZE], eax ;Ergebnisse aus eax und edx zwischenspeichern
+    mov [SAVE], edx
+    
+    mov edx, [MUL2] ;MUL2 in edx laden
+    mul edx ;eax aus ersten MUL mit MUL2 multiplizieren
+    
+    mov [ERG], eax ;Ergebnisse zwischenspeichern
+    mov [SAVE2], edx
+    
+    mov eax, [SAVE] ;SAVE in eax laden
+    mov edx, [MUL2] ;MUL2 in edx laden
+    mul edx 
+    
+    mov [ZE4], eax  ;eax zwischenspeichern (unnötig)
+    mov edx, [SAVE2] ;SAVE2 in edx laden (beide "overflows" müssen addiert werden)
+    add eax, edx
+    
+    mov [ERG4], eax
+    
+    PRINT_HEX 4, ERG4
+    PRINT_HEX 4, ERG
+    
+    
+    xor eax, eax
+    ret
