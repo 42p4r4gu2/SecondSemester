@@ -8,6 +8,8 @@ ZE4 DD 0
 ZAHL DD 429496729
 MUL1 DD 22
 MUL2 DD 8
+DIV1 DD 2
+DIV2 DD 2
 SAVE DD 0
 SAVE2 DD 0
 section .text
@@ -37,9 +39,40 @@ main:
     
     mov [ERG4], eax
     
-    PRINT_HEX 4, ERG4
-    PRINT_HEX 4, ERG
+    xor eax, eax
+    xor edx, edx
     
+    mov eax, [ERG4]
+    
+    
+    xor edx, edx
+    mov ecx, [DIV1]
+    div ecx
+    mov [SAVE], eax
+
+    mov eax, [SAVE]
+    xor edx, edx ; clear edx for division
+    mov ecx, [DIV2]
+    div ecx
+    mov [ERG4], eax
+
+    mov eax, [ERG]
+    xor edx, edx ; clear edx for division
+    mov ecx, [DIV1]
+    div ecx
+    mov [SAVE2], eax
+
+    mov eax, [SAVE2]
+    mov ecx, [DIV2]
+    xor edx, edx ; clear edx for division
+    div ecx
+    mov [ERG], eax
+    
+    mov eax, [ERG4]
+    mov edx, [ERG]
+    
+    PRINT_HEX 4, eax
+    PRINT_HEX 4, edx
     
     xor eax, eax
     ret
