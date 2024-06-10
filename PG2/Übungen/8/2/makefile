@@ -3,7 +3,7 @@ CFLAGS = -std=c++11 -g -Wall
 LDFLAGS =
 SOURCES = calc.cpp token.cpp
 OBJECTS = $(SOURCES:.cpp=.o)
-EXECUTABLE = demo.exe
+EXECUTABLE = demo
 
 all: $(SOURCES) $(EXECUTABLE)
 
