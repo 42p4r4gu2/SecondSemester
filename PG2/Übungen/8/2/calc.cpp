@@ -5,14 +5,14 @@ using std::cout, std::endl, std::cerr;
 
 std::ostream& operator<<(std::ostream& out, const std::vector<token> vec){
     for(int i = 0; i < vec.size(); i++){
-        cout << vec[i] << " / ";
+        out << vec[i] << " / ";
     }
-    cout << endl;
+    out << endl;
+    return out;
 }
 
 bool valid_operator(char c){
     char valid_ops[] = "+-*/";
-    cerr << c << endl;
     for(int i = 0; i < sizeof(valid_ops); i++){
         if(valid_ops[i] == c)
             return true;
@@ -54,7 +54,7 @@ int switch_calc(int l, char op, int r){
             return l / r;
             break;
         default:
-            cout << "implement: " << op << endl;
+            cerr << "implement: " << op << endl;
             return 0;
             break;
     }
@@ -67,18 +67,39 @@ int simple_eval_ltr(const std::vector<token> &vec){
     for(int i = 3; i < vec.size(); i+=2){
         temp = switch_calc(temp, vec[i].get_op(), vec[i+1].get_num());
     }
-
     return temp;
+}
+
+std::vector<token> read_tokens(std::istream &in){
+    std::vector<token> vec;
+    char c;
+    int i;
+    while(in.get(c)){
+        if(isdigit(c)){
+            in.putback(c);
+            in >> i;
+            vec.push_back(token(i));
+        } else {
+            in.putback(c);
+            in >> c;
+            vec.push_back(token(c));
+        }
+
+    }
+    cerr << vec << endl;
+    return vec;
 }
 
 int main(int argc, char **argv){
     
     std::vector<token> vec;
+
+    if(argc != 1){
     for(int i = 1; i < argc; i++){
         if(i%2==0){
-           vec.push_back(argv[i][0]);
+           vec.push_back(token(argv[i][0]));
         } else {
-            vec.push_back(atoi(argv[i]));
+            vec.push_back(token(atoi(argv[i])));
         }
     }
     
@@ -87,6 +108,13 @@ int main(int argc, char **argv){
         return -1;
     }
 
-    cout << simple_eval_ltr(vec) << endl;
+    cout << "Ergebnis: " << simple_eval_ltr(vec) << endl;
+    }
+
+    while(1){
+        std::vector<token> vec;
+        vec = read_tokens(std::cin);
+        cerr << vec << endl;
+    }
 
 }

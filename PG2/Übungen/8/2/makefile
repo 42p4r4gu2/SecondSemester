@@ -1,9 +1,9 @@
 CC = g++
-CFLAGS = -std=c++11 -g -Wall
+CFLAGS = -std=c++17 -g -Wall
 LDFLAGS =
 SOURCES = calc.cpp token.cpp
 OBJECTS = $(SOURCES:.cpp=.o)
-EXECUTABLE = demo
+EXECUTABLE = demo.exe
 
 all: $(SOURCES) $(EXECUTABLE)
 

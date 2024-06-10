@@ -3,9 +3,9 @@
 
 std::ostream& operator<<(std::ostream &out, const token &tok){
     if(tok.op)
-        std::cout << tok.op;
+        out << tok.op;
     else if(tok.number)
-        std::cout << tok.number;
+        out << tok.number;
 
     return out;
 }
