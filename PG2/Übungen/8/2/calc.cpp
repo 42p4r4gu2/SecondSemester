@@ -5,19 +5,17 @@ using std::cout, std::endl, std::cerr;
 
 std::ostream& operator<<(std::ostream& out, const std::vector<token> vec){
     for(int i = 0; i < vec.size(); i++){
-        out << vec[i] << " / ";
+        out << vec[i];
     }
     out << endl;
     return out;
 }
 
 bool valid_operator(char c){
-    char valid_ops[] = "+-*/";
-    for(int i = 0; i < sizeof(valid_ops); i++){
-        if(valid_ops[i] == c)
-            return true;
-    }
-    cerr << "not a operator" << endl;
+    std::string valid_ops= "+-*/";
+    if(valid_ops.find(c) != std::string::npos)
+        return true;
+
     return false;
 }
 
@@ -74,20 +72,30 @@ std::vector<token> read_tokens(std::istream &in){
     std::vector<token> vec;
     char c;
     int i;
+    std::string s;
     while(in.get(c)){
         if(c == '\n')
             return vec;
         if(isdigit(c)){
-            cerr << "if loop" << endl;
             in.putback(c);
             in >> i;
-            vec.push_back(token(int(i)));
-        } else if(isalpha(c) && !isspace(c)){
-            cerr << "else if" << endl;
-            vec.push_back(token(c));
+            vec.emplace_back(i);
+        } else if(valid_operator(c)){
+            vec.emplace_back(c);
+        } else if(isalpha(c)){
+            s = c;
+            while(in.get(c)){
+                if(isalnum(c)) {
+                    s += c;
+                } else {
+                    in.putback(c);
+                    break;
+                }
+            }
+            vec.emplace_back(s);
+        }
     }
     return vec;
-    }
 }
 
 int main(int argc, char **argv){

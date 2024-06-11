@@ -2,23 +2,29 @@
 #include "token.h"
 
 std::ostream& operator<<(std::ostream &out, const token &tok){
-    if(tok.op){
-        out << "OP" << tok.op;
+    switch (tok.kind)
+    {
+        case token::kind::NUM:
+            out << "NUM: " << tok.number;
+            break;
+        case token::kind::OP:
+            out << "OP: " << tok.op;
+            break;
+        case token::kind::VAR:
+            out << "VAR: " << tok.var;
     }
-    else if(tok.number)
-        out << "NUM" << tok.number;
-
+    out << std::endl;
     return out;
 }
 
 const int token::get_num() const {
-    if(number)
+    if(kind == NUM) 
         return number;
     return NULL;
 }
 
 const char token::get_op() const {
-    if(op)
+    if(kind == OP)
         return op;
     return NULL;
 }
