@@ -2,10 +2,11 @@
 #include "token.h"
 
 std::ostream& operator<<(std::ostream &out, const token &tok){
-    if(tok.op)
-        out << tok.op;
+    if(tok.op){
+        out << "OP" << tok.op;
+    }
     else if(tok.number)
-        out << tok.number;
+        out << "NUM" << tok.number;
 
     return out;
 }

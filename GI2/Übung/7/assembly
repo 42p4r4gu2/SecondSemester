@@ -15,6 +15,7 @@ SAVE2 DD 0
 section .text
 global main
 main:
+    mov ebp, esp; for correct debugging
 
     mov eax, [ZAHL] ;Variablen ZAHL und MUL1 in eax und edx laden
     mov edx, [MUL1]
@@ -42,30 +43,33 @@ main:
     xor eax, eax
     xor edx, edx
     
-    mov eax, [ERG4]
-    
     
     xor edx, edx
-    mov ecx, [DIV1]
-    div ecx
-    mov [SAVE], eax
-
-    mov eax, [SAVE]
-    xor edx, edx ; clear edx for division
-    mov ecx, [DIV2]
-    div ecx
+    
+    ;Multiplikation DIV1 und DIV2
+    mov eax, [DIV1]
+    mov ebx, [DIV2]
+    MUL ebx
+    
+    ;Multiplikation vorbereiten und durchführen, Rest wird im Speicher gelassen    
+    mov ebx, eax
+    xor edx, edx
+    mov eax, [ERG4]
+    div ebx
     mov [ERG4], eax
-
+    
+    ;erste Multiplikation kleinerer Teil vorbereiten und durchführen, edx ist Rest der Division der größeren Zahl
     mov eax, [ERG]
-    xor edx, edx ; clear edx for division
-    mov ecx, [DIV1]
-    div ecx
-    mov [SAVE2], eax
-
-    mov eax, [SAVE2]
-    mov ecx, [DIV2]
-    xor edx, edx ; clear edx for division
-    div ecx
+    mov ebx, [DIV1]
+    div ebx
+    mov [ERG], eax
+    
+    ;nächste Multiplikation vorbereiten und durchführen
+    xor edx, edx    
+    mov eax, [ERG]
+    mov ebx, [DIV1]
+    div ebx
+    
     mov [ERG], eax
     
     mov eax, [ERG4]

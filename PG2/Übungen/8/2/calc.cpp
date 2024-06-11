@@ -75,19 +75,19 @@ std::vector<token> read_tokens(std::istream &in){
     char c;
     int i;
     while(in.get(c)){
+        if(c == '\n')
+            return vec;
         if(isdigit(c)){
+            cerr << "if loop" << endl;
             in.putback(c);
             in >> i;
-            vec.push_back(token(i));
-        } else {
-            in.putback(c);
-            in >> c;
+            vec.push_back(token(int(i)));
+        } else if(isalpha(c) && !isspace(c)){
+            cerr << "else if" << endl;
             vec.push_back(token(c));
-        }
-
     }
-    cerr << vec << endl;
     return vec;
+    }
 }
 
 int main(int argc, char **argv){
