@@ -1,5 +1,6 @@
 CC = g++
 CFLAGS = -std=c++17 -g -Wall
+DEBUGFLAGS = -std=c++17 -g -Wall
 LDFLAGS =
 SOURCES = calc.cpp token.cpp
 OBJECTS = $(SOURCES:.cpp=.o)

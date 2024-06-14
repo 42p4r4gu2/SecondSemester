@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/Max/Documents/Studium/SecondSemester/SecondSemester/PG2/Übungen/6",
-      "program": "c:/Users/Max/Documents/Studium/SecondSemester/SecondSemester/PG2/Übungen/6/build/Debug/outDebug",
+      "cwd": "${workspaceFolder}/build",
+      "program": "${workspaceFolder}/build/MyProgramm",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

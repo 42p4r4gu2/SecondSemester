@@ -1,4 +1,3 @@
-#pragma once
 #include "token.h"
 
 std::ostream& operator<<(std::ostream &out, const token &tok){
@@ -20,11 +19,20 @@ std::ostream& operator<<(std::ostream &out, const token &tok){
 const int token::get_num() const {
     if(kind == NUM) 
         return number;
-    return NULL;
+    if(kind == VAR)
+        return -1;
 }
 
 const char token::get_op() const {
     if(kind == OP)
         return op;
-    return NULL;
+}
+
+const std::string token::get_var() const{
+    if(kind == VAR)
+        return var;
+}
+
+const int token::get_enum() const{
+    return kind;
 }
