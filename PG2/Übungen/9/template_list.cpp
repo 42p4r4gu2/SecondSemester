@@ -13,19 +13,19 @@ public:
     ~dyn_array(){
         delete[] data;
     }
-    dyn_array(dyn_array &&other) : data(std::move(other.data)), elements(len(data)){}
+    dyn_array(dyn_array &&other) : data(std::move(other.data)), elements(sizeof(data)){}
 
     template <typename T2>
     friend std::ostream& operator<<(std::ostream &out, const dyn_array<T2> &list);
 
-    dyn_array<T>& operator=(const dyn_array<T> &&src){ 
-    if(this != &src){
-        data = std::move(src.data);
+    dyn_array<T>& operator=(dyn_array<T> &&src){ 
+        data = src.data;
         elements = src.elements;
         src.data = nullptr;
+        src.elements = 0;
+        return *this;
     }
-    return *this;
-    }
+
     void append(T elem){
         T *new_data = new T[++elements];
         for(int i = 0; i < elements-1; i++){
@@ -35,11 +35,11 @@ public:
         data = new_data;
         data[elements-1] = elem;
     }
-    int getSize(){ 
+    const int getSize() const { 
         return elements;
     }
 
-    T& operator[](int i){
+    const T& operator[](int i) const {
         return data[i];
     }
 };
