@@ -53,8 +53,21 @@ std::ostream& operator<<(std::ostream &out, const dyn_array<T> &list){
     return out; 
 }
 
+template <typename T>
+class max{
+    public:
+        T& operator()(const dyn_array<T> &arr){
+            T max = arr[0];
+            for(int i = 1; i < arr.getSize(); i++){
+                if(max < arr[i])
+                    max = arr[i];
+            }
+            return max;
+        }
+};
+
 template<typename T>
-dyn_array<T> returnMedian(const dyn_array<T> &arr){
+dyn_array<T> returnSum(const dyn_array<T> &arr){
     int median = 0;
     for(int i = 0; i < arr.getSize(); i++){
         median += arr[i];
@@ -65,16 +78,15 @@ dyn_array<T> returnMedian(const dyn_array<T> &arr){
 }
 
 int main(int argc, char**argv){
-
     dyn_array<int> myArr;
 
     for(int i = 1; i < argc; i++){
         myArr.append(atoi(argv[i]));
-        cout << myArr << endl;
     }
+    cout << myArr << endl;
 
-    dyn_array<int> myArr2;
-    myArr2 = returnMedian(myArr);
-    cout << myArr2 << endl;
+    max<int> max;
+    int maxV = max(myArr);
+    cout << "max value:" << maxV << endl;
 
 }
