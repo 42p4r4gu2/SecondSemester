@@ -44,6 +44,10 @@ public:
     const T& operator[](int i) const {
         return data[i];
     }
+
+    T& operator[](int i){
+        return data[i];
+    }
 };
 
 
@@ -93,17 +97,15 @@ dyn_array<T> returnSum(const dyn_array<T> &arr){
 
 template <typename T>
 void swap(T &first, T &sec){
-    if constexpr(std::is_same_v(first, sec)){
-        if constexpr(std::is_scalar_v(T)){
-            T temp = first;
-            first = sec;
-            sec = first;
-        } else {
-            for(int i = 0; i < first.getSize(); i+=2){
-                temp = first[i];
-                first[i] = sec[i+1];
-                sec[i+1] = temp;
-            }
+    if constexpr(std::is_scalar_v<T>){  //constexpr weil muss bekannt sein zur compilezeit
+        T temp = first;
+        first = sec;
+        sec = temp;
+    } else {
+        for(int i = 0; i < first.getSize(); i+=2){
+            auto temp = first[i];
+            first[i] = sec[i+1];
+            sec[i+1] = temp;
         }
     }
 }
@@ -116,10 +118,12 @@ int main(int argc, char**argv){
     }
     cout << myArr << endl;
 
+    /*
     max<int> max;
     int maxV = max(myArr);
     cout << "max value:" << maxV << endl;
-
+    */
+    /*
     dyn_array<std::string> sArr;
 
     for(int i = 1; i < argc; i++)
@@ -128,13 +132,18 @@ int main(int argc, char**argv){
     most_E counter;
     cout << sArr << endl;
     cout << "string with most ammount of e's " << counter(sArr) << endl;
+    */
 
     dyn_array<int> myArr2;
     for(int i = 0; i < myArr.getSize(); i++){
-        myArr2.append(myArr[i] + 15);
+        int temp = myArr[i] + 20;
+        myArr2.append(temp);
     }
     cout << myArr2 << endl;
+
     swap(myArr2, myArr);
-    cout << myArr << endl;
-    cout << myArr2 << endl;
+    cout << "after swap" << endl;
+    cout << "myArr" << endl << myArr << endl;
+    cout << "myArr2" << endl << myArr2 << endl;
+
 }
