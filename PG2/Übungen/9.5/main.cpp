@@ -10,7 +10,7 @@ std::ostream& operator<<(std::ostream &out, const course_info &info){
 }
 
 std::ostream& operator<<(std::ostream &out, const ass_arr &arr){
-    for(std::pair<const std::string, course_info> ele : arr.vec)
+    for(const auto &ele : arr.vec)
         out << ele.first << " | " << ele.second << std::endl;
 
     return out;
