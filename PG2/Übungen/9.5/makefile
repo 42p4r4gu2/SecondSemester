@@ -1,6 +1,6 @@
 FLAGS = -std=c++17 -Wall
 
-SRC = main.cpp ass_arr.cpp ass_arr.h
+SRC = main.cpp ass_arr.cpp
 OBJ = $(SRC:.cpp=.o)
 
 all: exec

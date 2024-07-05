@@ -1,4 +1,3 @@
-#pragma once
 #include <vector>
 #include <string>
 #include <iostream>
@@ -27,14 +26,13 @@ class ass_arr{
     ass_arr(const ass_arr &other) : vec(other.vec), elements(other.elements) {}
 
     ass_arr(ass_arr &&other){ 
+        std::cout << __PRETTY_FUNCTION__ << std::endl;
         vec = std::move(other.vec);
         elements = other.elements;
         other.elements = 0; 
         }
 
-    void append(const std::string name, const course_info &inf){
-        vec.emplace_back(name, inf);
-    }
+    void append(const std::string name, const course_info &inf){ vec.emplace_back(name, inf); }
 
     friend std::ostream& operator<<(std::ostream &out, const ass_arr &arr);
 };
