@@ -1,4 +1,4 @@
-FLAGS = -std=c++17 -Wall
+FLAGS = -std=c++20 -Wall
 
 SRC = main.cpp ass_arr.cpp
 OBJ = $(SRC:.cpp=.o)

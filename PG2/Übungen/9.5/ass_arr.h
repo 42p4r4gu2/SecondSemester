@@ -34,5 +34,7 @@ class ass_arr{
 
     void append(const std::string name, const course_info &inf){ vec.emplace_back(name, inf); }
 
+    void append(const std::pair<std::string, const course_info> &pair){ vec.emplace_back(pair); }
+
     friend std::ostream& operator<<(std::ostream &out, const ass_arr &arr);
 };
