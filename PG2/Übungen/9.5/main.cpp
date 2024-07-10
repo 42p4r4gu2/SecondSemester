@@ -56,7 +56,7 @@ class count_true{
 
     int operator()(const ass_arr &arr){
         auto vec = arr.getVec();
-        course_info::ValType valueInCol= vec[0][pos];
+        course_info::ValType valueInCol= vec[0].second[pos];
 
         for(const auto &elements : arr.getVec()){
             switch(egs){
@@ -145,14 +145,27 @@ ass_arr returnMin10Lec(const ass_arr &arr){
     return min10Lec;
 }
 
+std::pair<int, int> passedPG(const ass_arr &arr){
+    int passed = 0;
+    int failed = 0;
+    for(const auto &element : arr.getVec()){
+        if(element.second[3] >= 4.0)
+            passed++;
+        else
+            failed++;
+    }
+
+    return std::pair(passed, failed);
+}
+
 int main(int argc, char **argv){
     ass_arr students;
     const std::string filename("./students.txt");
     read_file(filename, students);
     comp_time(students);
 
-    //.cout << returnOver30Yo(students) << endl;
-    cout << returnMin10Lec(students) << endl;
+    //cout << returnOver30Yo(students) << endl;
+    //cout << returnMin10Lec(students) << endl;
 
     return 0;
 }
