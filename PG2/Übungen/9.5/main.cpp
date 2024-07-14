@@ -45,14 +45,13 @@ class filter_pred_ge{
     }
 };
 
-template <typename t>
 class count_true{
     int pos, count;
-    t value;
+    std::variant<int, double> value;
     char egs; //e(qual), g(reaterequal), s(mallerequal)
 
     public:
-    count_true(int pos, t value, char egs) : pos(pos), value(value), egs(egs) { count = 0; }
+    count_true(int pos,  std::variant<int, double> value, char egs) : pos(pos), value(value), egs(egs) { count = 0; }
 
     int operator()(const ass_arr &arr){
         auto vec = arr.getVec();
@@ -148,13 +147,9 @@ ass_arr returnMin10Lec(const ass_arr &arr){
 std::pair<int, int> passedPG(const ass_arr &arr){
     int passed = 0;
     int failed = 0;
-    for(const auto &element : arr.getVec()){
-        if(element.second[3] >= 4.0)
-            passed++;
-        else
-            failed++;
-    }
-
+    count_true pass(3, 4.0, 'g');
+    passed = pass(arr);
+    failed = arr.getVec().size() - passed;
     return std::pair(passed, failed);
 }
 
@@ -166,6 +161,8 @@ int main(int argc, char **argv){
 
     //cout << returnOver30Yo(students) << endl;
     //cout << returnMin10Lec(students) << endl;
+    auto pairPassFail = passedPG(students);
+    cout << "passed the exam: " << pairPassFail.first << "\nfailed the exam :" << pairPassFail.second << endl;
 
     return 0;
 }
