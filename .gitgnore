@@ -1,2 +1,3 @@
-ls -agit
-PG2/\303\234bungen/12/steam_reviews/steam_reviews.csv
+*.csv
+**/*.csv
+PG2/Übungen/12/steam_reviews/steam_reviews.csv

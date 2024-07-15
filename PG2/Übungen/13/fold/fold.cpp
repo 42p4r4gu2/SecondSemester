@@ -11,7 +11,8 @@ int main(int argc, char **argv){
                         bool al = true;
                         for(const char c : line){
                             if(!isalnum(c)){
-                                al = false;
+                                if(c != ' ')
+                                    al = false;
                             }
                         }
                         al ? cout << line << endl : cout << endl;
@@ -20,6 +21,8 @@ int main(int argc, char **argv){
     if(argc > 1){
         for(int i = 1; i < argc; i++){
             std::ifstream fs(argv[i]);
+            if(!fs.is_open())
+                throw std::runtime_error("File couldnt be opened");
             while(std::getline(fs, line))
                 printAlNum();
         }
